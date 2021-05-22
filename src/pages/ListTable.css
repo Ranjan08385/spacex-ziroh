@@ -1,0 +1,36 @@
+.listTable {
+  /* height: 450px; */
+  margin-top: 50px;
+  border: 1px solid #ccc;
+}
+
+.listTable__header {
+  display: flex;
+  justify-content: space-around;
+  padding: 5px;
+  background-color: #ccc;
+}
+
+/* .listTable__name {
+  width: 120px;
+} */
+
+.listTable__listValues {
+  text-align: center;
+  margin-top: 40px;
+}
+
+.listTable__listValues {
+  margin-top: -0px;
+}
+
+.listTable__value {
+  display: flex;
+  padding: 9px;
+  justify-content: space-around;
+}
+
+.listTable__value > p {
+  width: 100px;
+  /* border: 1px solid red; */
+}

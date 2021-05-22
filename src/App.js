@@ -1,23 +1,25 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useEffect, useState } from "react";
+import SpacexAPI from "./api/SpacexApi";
+import "./App.css";
+import Header from "./components/Header";
+import MainPage from "./pages/MainPage";
+// import {BrowserRouter, } 'react-router-dom';
 
 function App() {
+  const [spaceData, setSpaceData] = useState([]);
+
+  useEffect(() => {
+    SpacexAPI.get("/launches")
+      .then((res) => {
+        // console.log(res.data);
+        setSpaceData(res.data);
+      })
+      .catch((err) => console.log(err));
+  }, []);
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="app">
+      <Header />
+      <MainPage spaceData={spaceData} />
     </div>
   );
 }
