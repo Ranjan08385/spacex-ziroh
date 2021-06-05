@@ -6,13 +6,13 @@
 
 .listTable__header {
   display: flex;
-  justify-content: space-around;
-  padding: 5px;
+  justify-content: space-evenly;
+  padding: 10px;
   background-color: #ccc;
 }
 
 /* .listTable__name {
-  width: 120px;
+  width: 150px;
 } */
 
 .listTable__listValues {
@@ -22,15 +22,27 @@
 
 .listTable__listValues {
   margin-top: -0px;
+  justify-content: space-around;
+  align-items: left;
 }
 
 .listTable__value {
   display: flex;
   padding: 9px;
   justify-content: space-around;
+  cursor: pointer;
+}
+
+.listTable__value:hover {
+  background-color: rgb(243, 242, 242);
 }
 
 .listTable__value > p {
-  width: 100px;
-  /* border: 1px solid red; */
+  align-items: center;
+  width: 160px;
+}
+
+.listTable__name {
+  font-size: 16px;
+  font-weight: bold;
 }

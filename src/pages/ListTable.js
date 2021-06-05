@@ -1,9 +1,9 @@
 import React from "react";
 import "./ListTable.css";
-import Moment from "react-moment";
+import moment from "moment";
 
 const tableHead = [
-  "No:",
+  "No",
   "Launched (UTC)",
   "Location",
   "Mission",
@@ -12,7 +12,9 @@ const tableHead = [
   "Rocket",
 ];
 
-function ListTable({ data, initialState, finalState }) {
+let styleArray = [];
+
+function ListTable({ data }) {
   const dateFormat = (date) => {
     const newDate = new Intl.DateTimeFormat("utc", {
       year: "numeric",
@@ -25,6 +27,10 @@ function ListTable({ data, initialState, finalState }) {
 
     return newDate;
   };
+
+  const rowStyle = (i) => {
+    styleArray.push(i);
+  };
   return (
     <div className="listTable">
       <div className="listTable__header">
@@ -34,29 +40,22 @@ function ListTable({ data, initialState, finalState }) {
           </p>
         ))}
       </div>
-
       <div className="listTable__listValues">
         {data?.map((value, i) => (
           <div className="listTable__value" key={i}>
             <p>{value.flight_number}</p>
-            <p>
-              <Moment local>{value.launch_date_local}</Moment>
-            </p>
+            <p>{moment(value.launch_date_local).format("lll")}</p>
             <p>{value.launch_site.site_name}</p>
             <p>{value.mission_name}</p>
             <p>{value.rocket.second_stage.payloads[0].orbit}</p>
             <p
-            //   style={{
-            //     background: "red",
-            //     borderRadius: 20,
-            //     padding: 4,
-            //     paddingLeft: 6,
-            //     paddingRight: 6,
-            //     fontSize: 12,
-            //     color: "#fff",
-            //   }}
+              style={{
+                color: Number(value.flight_number) % 2 === 0 ? "red" : "green",
+                fontSize: 14,
+                fontWeight: "bold",
+              }}
             >
-              {"Failed"}
+              {Number(value.flight_number) % 2 === 0 ? "Failed" : "Success"}
             </p>
             <p>{value.rocket.rocket_name}</p>
           </div>

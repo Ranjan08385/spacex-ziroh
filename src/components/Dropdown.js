@@ -5,7 +5,7 @@ import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
 import "./Dropdown.css";
 
-function Dropdown({ data, selectedDate }) {
+function Dropdown({ data }) {
   return (
     <FormControl className="dropdown">
       <InputLabel id="demo-controlled-open-select-label"></InputLabel>
@@ -25,7 +25,7 @@ function Dropdown({ data, selectedDate }) {
           <MenuItem
             value={value}
             key={index}
-            onClick={() => selectedDate(value)}
+            // onClick={() => selectedDate(value)}
           >
             {value}
           </MenuItem>

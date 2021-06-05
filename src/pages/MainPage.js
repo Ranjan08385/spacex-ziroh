@@ -6,6 +6,10 @@ import FilterListIcon from "@material-ui/icons/FilterList";
 import ListTable from "./ListTable";
 import ChevronRightIcon from "@material-ui/icons/ChevronRight";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
+import { IconButton } from "@material-ui/core";
+import { useSelector } from "react-redux";
+import { selectItems } from "../slices/spaceXdataSlice";
+import { DataGrid } from "@material-ui/data-grid";
 
 const launches = [
   "All Launches",
@@ -27,15 +31,19 @@ function MainPage({ spaceData }) {
   const [initialState, setInitialState] = useState(1);
   const [finalState, setFinalState] = useState(10);
   const [data, setdata] = useState([]);
+  const items = useSelector(selectItems);
+  const [tableData, setTableData] = useState([]);
 
   useEffect(() => {
-    const newData = spaceData.slice(initialState - 1, finalState);
-    setdata(newData);
-  }, [spaceData, initialState, finalState, data]);
+    console.log("SLice data", items[0]);
+    setTableData(items[0]);
+  }, [items]);
 
   const onClickNext = () => {
-    setInitialState(finalState + 1);
-    setFinalState(finalState + 10);
+    if (finalState <= spaceData.length) {
+      setInitialState(finalState + 1);
+      setFinalState(finalState + 10);
+    }
   };
 
   const onClickPrev = () => {
@@ -57,29 +65,15 @@ function MainPage({ spaceData }) {
     setdata(result);
   };
 
-  const selectedDate = (val) => {
-    console.log(val);
+  const columns = [
+    { field: "id", headerName: "Flight No", width: 70 },
+    { field: "launchDate", headerName: "Launch Date", width: 180 },
+    { field: "launchSiteName", headerName: "Location", width: 180 },
+    { field: "missionName", headerName: "Mission", width: 180 },
+    { field: "orbit", headerName: "Orbit", width: 180 },
+    { field: "rocketName", headerName: "Rocket Name", width: 180 },
+  ];
 
-    // if (val === "Past week") {
-    //   const sd = "2021-05-22T00:00:00.000Z";
-    //   dataByDate(sd);
-    // } else if (val === "Past month") {
-    //   const sd = "2021-04-1300:00:00.000Z";
-    //   dataByDate(sd);
-    // } else if (val === "Past 3 months") {
-    //   const sd = "2021-02-1300:00:00.000Z";
-    //   dataByDate(sd);
-    // } else if (val === "Past 6 months") {
-    //   const sd = "2020-11-1300:00:00.000Z";
-    //   dataByDate(sd);
-    // } else if (val === "Past year") {
-    //   const sd = "2020-01-1300:00:00.000Z";
-    //   dataByDate(sd);
-    // } else if (val === "Past 2 year") {
-    //   const sd = "2019-01-1300:00:00.000Z";
-    //   dataByDate(sd);
-    // }
-  };
   return (
     <div className="mainPage">
       <div className="mainPage__dropdown">
@@ -87,7 +81,7 @@ function MainPage({ spaceData }) {
           <CalendarTodayIcon style={{ marginRight: 10 }} />
           <Dropdown
             data={dataDropdown}
-            selectedDate={(val) => selectedDate(val)}
+            // selectedDate={(val) => selectedDate(val)}
           />
         </div>
 
@@ -98,21 +92,14 @@ function MainPage({ spaceData }) {
       </div>
 
       <div className="mainPage__table">
-        <ListTable
-          data={data}
-          initialState={initialState}
-          finalState={finalState}
-        />
-      </div>
-
-      <div className="mainPage__pagination">
-        <div className="mainPage__numbers">
-          <ChevronLeftIcon onClick={onClickPrev} />
-          <p>
-            {initialState} - {finalState}
-          </p>
-          <ChevronRightIcon onClick={onClickNext} />
-        </div>
+        {tableData ? (
+          <DataGrid
+            rows={tableData}
+            columns={columns}
+            pageSize={10}
+            checkboxSelection
+          />
+        ) : null}
       </div>
     </div>
   );

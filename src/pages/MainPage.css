@@ -1,5 +1,5 @@
 .mainPage {
-  width: 60%;
+  width: 68%;
   margin: 50px auto;
   /* border: 1px solid #000; */
 }
@@ -11,14 +11,14 @@
 }
 
 .mainPage__dropdownFirst {
-  flex: 0.2;
+  width: 250px;
   display: flex;
   justify-content: center;
   align-items: flex-end;
 }
 
 .mainPage__dropdownLast {
-  flex: 0.2;
+  width: 250px;
   display: flex;
   justify-content: center;
   align-items: flex-end;
@@ -28,4 +28,13 @@
   display: flex;
   justify-content: flex-end;
   margin-top: 20px;
+}
+
+.mainPage__numbers > p {
+  padding: 10px;
+}
+
+.mainPage__table {
+  height: 650px;
+  margin-top: 50px;
 }
